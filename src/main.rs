@@ -214,9 +214,17 @@ fn set_volume(cfg: &Config, v: i32) -> Res<i32> {
     Ok(v)
 }
 
+/// Change volume by `delta` and unmute. Sonos has no combined call, so the
+/// unmute is sent unconditionally in parallel (a no-op if not muted) instead
+/// of checking the mute state first.
 fn change_volume(cfg: &Config, delta: i32) -> Res<i32> {
-    let r = soap(cfg, "SetRelativeVolume", &format!("<Channel>Master</Channel><Adjustment>{delta}</Adjustment>"))?;
-    let new: i32 = tag(&r, "NewVolume").and_then(|v| v.parse().ok()).ok_or("unexpected SetRelativeVolume reply")?;
+    let (vol, unmute) = std::thread::scope(|s| {
+        let unmute = s.spawn(|| set_mute(cfg, false));
+        let vol = soap(cfg, "SetRelativeVolume", &format!("<Channel>Master</Channel><Adjustment>{delta}</Adjustment>"));
+        (vol, unmute.join().unwrap_or_else(|_| Err("unmute failed".into())))
+    });
+    let new: i32 = tag(&vol?, "NewVolume").and_then(|v| v.parse().ok()).ok_or("unexpected SetRelativeVolume reply")?;
+    unmute?;
     if new > cfg.max_volume { set_volume(cfg, cfg.max_volume) } else { Ok(new) }
 }
 

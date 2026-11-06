@@ -61,5 +61,7 @@ and `autostart` (run `sonos refresh` at login).
 
 ## Releasing
 
-Push a version tag (e.g. `git tag v0.2.0 && git push origin v0.2.0`); CI builds
-the binary and publishes it as a GitHub release.
+Bump the version in `Cargo.toml`, add a `## vX.Y.Z` section to `CHANGELOG.md`,
+then push a matching tag (e.g. `git tag v0.2.0 && git push origin v0.2.0`). CI
+builds the binary and publishes a GitHub release with that changelog section as
+its notes.

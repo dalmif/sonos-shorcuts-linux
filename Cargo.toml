@@ -1,6 +1,6 @@
 [package]
 name = "sonos"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 description = "Control a Sonos speaker (volume, mute, playback) from the command line and global keyboard shortcuts"
 
