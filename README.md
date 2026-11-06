@@ -1,4 +1,4 @@
-# sonos
+# Sonos
 
 A small command-line tool to control a Sonos speaker on your local network:
 volume, mute, play/pause and track skipping. It finds the speaker for you and
