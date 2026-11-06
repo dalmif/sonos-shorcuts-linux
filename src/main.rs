@@ -660,7 +660,7 @@ fn run(args: Vec<String>) -> Res<()> {
         }
         "help" | "-h" | "--help" => {
             print!(
-                "sonos — control your Sonos speaker's volume
+                "sonos — control your Sonos speaker
 
 USAGE:
   sonos init [--ip ADDR] [--no-desktop]

@@ -4,6 +4,12 @@ A small command-line tool to control a Sonos speaker on your local network:
 volume, mute, play/pause and track skipping. It finds the speaker for you and
 can bind its commands to global keyboard shortcuts.
 
+## Download
+
+Grab the prebuilt x86_64 Linux binary from
+[Releases](https://github.com/dalmif/sonos-shorcuts-linux/releases), extract it
+and run `./sonos init`.
+
 ## Build and run
 
 Requires [Rust](https://rustup.rs).
@@ -52,3 +58,8 @@ desktops, bind the commands (e.g. `sonos up`) in your desktop's keyboard setting
 
 Other options in `sonos.json`: `step` (volume change per press), `max_volume`,
 and `autostart` (run `sonos refresh` at login).
+
+## Releasing
+
+Push a version tag (e.g. `git tag v0.2.0 && git push origin v0.2.0`); CI builds
+the binary and publishes it as a GitHub release.
