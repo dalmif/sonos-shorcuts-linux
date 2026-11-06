@@ -1,0 +1,6 @@
+# build output
+/target
+/bin
+
+# local config (contains your speaker's address)
+sonos.json
